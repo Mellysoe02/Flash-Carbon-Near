@@ -51,7 +51,7 @@ app.get '/command.cgi', (req, res, next) ->
 	command[req.query.op] req, res, next
 
 app.get '/thumbnail.cgi', (req, res, next) ->
-	file = url.parse(req.originalUrl, false).query
+	file = decodeURIComponent url.parse(req.originalUrl, false).query
 	debug 'thumbnail %s', file
 	fs.readFile sdcard + file, (err, data) ->
 		throw err if err
