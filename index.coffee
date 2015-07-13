@@ -32,6 +32,7 @@ command =
 						(datetime.getMinutes()) << 5 ||
 						(datetime.getSeconds() / 2) << 0
 					"#{dir},#{file},#{stats.size},#{attribute},#{date},#{time}"
+			items.unshift 'WLANSD_FILELIST'
 			res.send items.join('\n')
 			next()
 	101: (req, res, next) ->
