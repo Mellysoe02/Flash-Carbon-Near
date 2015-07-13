@@ -38,7 +38,7 @@ command =
 		dir = req.query.DIR
 		debug 'filecount : %s', dir
 		fs.readdir sdcard + '/' + dir, (err, files) ->
-			res.send files.length + ''
+			res.send (files.length - 2) + ''  # exclude '.' and '..'
 			next()
 	102: (req, res, next) ->
 		next()
