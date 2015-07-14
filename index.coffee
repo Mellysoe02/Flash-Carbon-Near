@@ -10,6 +10,16 @@ app = express()
 app.disable 'x-powered-by'
 app.disable 'etag'
 
+watcher =
+	changed: false
+	isWatching: false
+	watch: (dir) ->
+		@FSWatcher.close() if @FSWatcher
+		@FSWatcher = fs.watch dir, { presistent: true, recursive: true }, (event, filename) =>
+			@changed = true
+		@isWatching = true
+	clear: -> @changed = false
+
 command =
 	100: (req, res, next) ->
 		dir = req.query.DIR
@@ -42,6 +52,9 @@ command =
 			res.send (files.length - 2) + ''  # exclude '.' and '..'
 			next()
 	102: (req, res, next) ->
+		watcher.watch sdcard if not watcher.isWatching
+		res.send if watcher.changed then '1' else '0'
+		watcher.clear()
 		next()
 	108: (req, res, next) ->
 		res.send 'FLASHNEAR.0.0.1'
