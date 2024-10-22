@@ -2,7 +2,7 @@ express = require 'express'
 fs      = require 'fs'
 url     = require 'url'
 exif    = require 'exif-parser'
-debug   = require('debug') 'flashnear'
+debug   = require('debug') 'flash-near'
 
 sdcard  = __dirname + '/' + 'sdcard'
 
